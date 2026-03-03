@@ -45,11 +45,12 @@ public class BeanFactory {
 
         for (int i = 0; i < paramTypes.length; i++) {
             dependencies[i] = dependencyInject(paramTypes[i]);
+            System.out.println(dependencies[i] + "의존관계 주입 완료");
         }
 
         Object instance = constructor.newInstance(dependencies);
         beans.put(clazz, instance);
-        System.out.println(clazz + "의존관계 주입 완료");
+        System.out.println(clazz + "빈 생성 완료");
         return clazz.cast(instance);
     }
 

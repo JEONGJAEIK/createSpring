@@ -1,11 +1,10 @@
 package com.createspring.spring.bean;
 
-import com.createspring.spring.annotation.Repository;
-import com.createspring.spring.annotation.RestController;
-import com.createspring.spring.annotation.Service;
+import com.createspring.spring.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
@@ -29,9 +28,7 @@ public class ComponentScan {
 
         for (Class<?> clazz : classes) {
             System.out.println(clazz.toString() + "빈 삽입 검사");
-            if (clazz.isAnnotationPresent(Service.class) ||
-                    clazz.isAnnotationPresent(Repository.class) ||
-                    clazz.isAnnotationPresent(RestController.class)) {
+            if (!clazz.isAnnotation() && hasComponent(clazz)) { // 어노테이션 클래스는 빈으로 만들지 않는다.
                 beanDefinition.add(clazz);
                 System.out.println(clazz + "빈 정의 삽입");
             }
@@ -68,6 +65,23 @@ public class ComponentScan {
             }
         }
         return classes;
+    }
+
+    /**
+     * 해당 어노테이션이 컴포넌트를 가지고 있는지 확인한다.
+     * 해당 클래스의 어노테이션들을 포문으로 돌리며 그 어노테이션이 컴포넌트를 가지고 있으면 통과
+     */
+    private static boolean hasComponent(Class<?> clazz) {
+        if (clazz.isAnnotationPresent(Component.class)) {
+            return true;
+        }
+
+        for (Annotation annotation : clazz.getAnnotations()) {
+            if (annotation.annotationType().isAnnotationPresent(Component.class)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

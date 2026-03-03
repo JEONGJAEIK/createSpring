@@ -3,8 +3,8 @@ package com.createspring.board.repository;
 import com.createspring.ConnectionUtil;
 import com.createspring.board.entity.Post;
 import com.createspring.spring.annotation.Repository;
+import com.createspring.spring.annotation.Transactional;
 
-import java.lang.reflect.Member;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
@@ -12,9 +12,11 @@ import java.util.NoSuchElementException;
 @Repository
 public class BoardRepository {
 
+    //TODO 오토커밋을 제거하고 트랜잭셔널을 붙여보자
     /**
      * 같은 글을 2개 연속 저장함 트랜잭션이 있다면 모두 롤백 없다면 하나가 남아있음
      */
+    @Transactional
     public void save(Post p) {
         System.out.println("인스턴스" + this);
         String sql = "insert into post(id, title, content, author) values(?, ?, ?, ?)";
