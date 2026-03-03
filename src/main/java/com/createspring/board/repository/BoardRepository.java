@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 public class BoardRepository {
 
     //TODO 오토커밋을 제거하고 트랜잭셔널을 붙여보자
+
     /**
      * 같은 글을 2개 연속 저장함 트랜잭션이 있다면 모두 롤백 없다면 하나가 남아있음
      */
@@ -20,32 +21,18 @@ public class BoardRepository {
     public void save(Post p) {
         System.out.println("인스턴스" + this);
         String sql = "insert into post(id, title, content, author) values(?, ?, ?, ?)";
-        Connection con = null;
-        PreparedStatement pstmt = null;
-
         try {
-            con = ConnectionUtil.getConnection();
-            con.setAutoCommit(false);
-            pstmt = con.prepareStatement(sql);
+            Connection con = ConnectionUtil.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setLong(1, p.getId());
             pstmt.setString(2, p.getTitle());
             pstmt.setString(3, p.getContent());
             pstmt.setString(4, p.getAuthor());
             pstmt.executeUpdate();
             pstmt.executeUpdate();
-            con.commit();
         } catch (Exception e) {
-            try {
-                if (con != null) {
-                    con.rollback();
-                }
-            } catch (SQLException ex) {
-                System.out.println("롤백 실패");
-                throw new RuntimeException(ex);
-            }
+            System.out.println("쿼리 망했다 돔항챠아아아앜");
             throw new RuntimeException(e);
-        } finally {
-            ConnectionUtil.close(con, pstmt, null);
         }
     }
 
@@ -76,7 +63,7 @@ public class BoardRepository {
             System.out.println("돔황챠!!!!!! 커넥션이 터졌다!!!!!");
             throw new RuntimeException(e);
         } finally {
-            ConnectionUtil.close(con, pstmt, null);
+            ConnectionUtil.close(pstmt, null);
         }
     }
 }

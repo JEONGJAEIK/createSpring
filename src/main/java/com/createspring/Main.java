@@ -3,6 +3,9 @@ package com.createspring;
 import com.createspring.board.controller.PostCreateController;
 import com.createspring.board.controller.PostSearchController;
 import com.createspring.spring.bean.BeanFactory;
+import com.createspring.spring.bean.PostBeanProcessor;
+import com.createspring.spring.proxy.ProxyFactory;
+import com.createspring.spring.proxy.TransactionalInterceptor;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -21,7 +24,7 @@ public class Main {
      * 톰캣 시작전에 스프링의 빈 팩토리를 초기화하고 서블릿에는 빈의 객체를 전달한다.
      * 모든 객체는 싱글톤이다.
      */
-    public static void main(String[] args) throws LifecycleException, IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws LifecycleException, IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         BeanFactory.initialize("com.createspring");
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);

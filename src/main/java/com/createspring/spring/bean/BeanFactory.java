@@ -1,5 +1,8 @@
 package com.createspring.spring.bean;
 
+import com.createspring.spring.proxy.ProxyFactory;
+import com.createspring.spring.proxy.TransactionalInterceptor;
+
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -18,12 +21,16 @@ public class BeanFactory {
     /**
      * 빈 팩토리를 초기화한다. 톰캣이 실행되기 전에 미리 실행한다.
      * 빈 정의리스트를 가지고 와서 객체 생성과 의존관계 주입을 실행한다.
+     * 완료되면 빈 후처리기에 빈을 전달한다.
      */
     public static void initialize(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        PostBeanProcessor postBeanProcessor = new PostBeanProcessor(new ProxyFactory());
         Set<Class<?>> beanDefinition = BeanDefinition.initBeanDefinition(basePackage);
 
         for (Class<?> clazz : beanDefinition) {
-            dependencyInject(clazz);
+            Object bean = dependencyInject(clazz);
+            Object object = postBeanProcessor.scanTargetProxy(bean, clazz);
+            beans.put(clazz, object);
         }
     }
 
@@ -49,7 +56,6 @@ public class BeanFactory {
         }
 
         Object instance = constructor.newInstance(dependencies);
-        beans.put(clazz, instance);
         System.out.println(clazz + "빈 생성 완료");
         return clazz.cast(instance);
     }

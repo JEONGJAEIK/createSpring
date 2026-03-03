@@ -14,4 +14,5 @@ dependencies {
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     implementation 'com.mysql:mysql-connector-j:8.3.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    implementation 'cglib:cglib:3.3.0'
 }

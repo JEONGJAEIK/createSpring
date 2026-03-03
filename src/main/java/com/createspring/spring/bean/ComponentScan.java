@@ -27,7 +27,6 @@ public class ComponentScan {
         Set<Class<?>> beanDefinition = new HashSet<>();
 
         for (Class<?> clazz : classes) {
-            System.out.println(clazz.toString() + "빈 삽입 검사");
             if (!clazz.isAnnotation() && hasComponent(clazz)) { // 어노테이션 클래스는 빈으로 만들지 않는다.
                 beanDefinition.add(clazz);
                 System.out.println(clazz + "빈 정의 삽입");
@@ -83,5 +82,4 @@ public class ComponentScan {
         }
         return false;
     }
-
 }
