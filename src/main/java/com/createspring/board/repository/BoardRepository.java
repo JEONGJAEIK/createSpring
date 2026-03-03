@@ -15,6 +15,7 @@ public class BoardRepository {
     /**
      * 같은 글을 2개 연속 저장함 트랜잭션이 있다면 모두 롤백 없다면 하나가 남아있음
      */
+    @Transactional
     public void save(Post p) {
         System.out.println("인스턴스" + this);
         String sql = "insert into post(id, title, content, author) values(?, ?, ?, ?)";

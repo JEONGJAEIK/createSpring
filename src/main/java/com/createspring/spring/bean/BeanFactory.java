@@ -17,7 +17,6 @@ import java.util.Set;
  */
 public class BeanFactory {
     private static Map<Class<?>, Object> beans = new HashMap<>();
-    private static PostBeanProcessor postBeanProcessor;
 
     /**
      * 빈 팩토리를 초기화한다. 톰캣이 실행되기 전에 미리 실행한다.
@@ -25,7 +24,6 @@ public class BeanFactory {
      * 완료되면 빈 후처리기에 빈을 전달한다.
      */
     public static void initialize(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        postBeanProcessor = new PostBeanProcessor(new ProxyFactory());
         Set<Class<?>> beanDefinition = BeanDefinition.initBeanDefinition(basePackage);
 
         for (Class<?> clazz : beanDefinition) {
@@ -42,6 +40,7 @@ public class BeanFactory {
      * 생성 직후 빈 후처리기를 적용하여 프록시가 필요한 빈은 프록시로 교체한다.
      */
     public static <T> T dependencyInject(Class<T> clazz) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        PostBeanProcessor postBeanProcessor = new PostBeanProcessor(new ProxyFactory());
         if (beans.containsKey(clazz)) {
             return clazz.cast(beans.get(clazz));
         }
