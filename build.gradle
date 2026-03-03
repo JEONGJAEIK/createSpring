@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.createspring'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.tomcat.embed:tomcat-embed-core:10.1.18'
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+}
