@@ -12,8 +12,6 @@ import java.util.NoSuchElementException;
 @Repository
 public class BoardRepository {
 
-    //TODO 오토커밋을 제거하고 트랜잭셔널을 붙여보자
-
     /**
      * 같은 글을 2개 연속 저장함 트랜잭션이 있다면 모두 롤백 없다면 하나가 남아있음
      */
