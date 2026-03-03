@@ -4,7 +4,7 @@ package com.createspring.board.service;
 import com.createspring.board.dto.PostDTO;
 import com.createspring.board.entity.Post;
 import com.createspring.board.repository.BoardRepository;
-import com.createspring.spring.Service;
+import com.createspring.spring.annotation.Service;
 
 @Service
 public class BoardService {

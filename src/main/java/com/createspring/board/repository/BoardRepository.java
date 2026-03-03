@@ -2,7 +2,7 @@ package com.createspring.board.repository;
 
 
 import com.createspring.board.entity.Post;
-import com.createspring.spring.Repository;
+import com.createspring.spring.annotation.Repository;
 
 import java.util.HashMap;
 import java.util.Map;

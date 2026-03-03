@@ -1,4 +1,4 @@
-package com.createspring.spring;
+package com.createspring.spring.bean;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -8,9 +8,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 빈 팩토리
+ * 빈을 관리한다.
+ */
 public class BeanFactory {
     private static Map<Class<?>, Object> beans = new HashMap<>();
 
+    /**
+     * 빈 팩토리를 초기화한다. 톰캣이 실행되기 전에 미리 실행한다.
+     * 빈 정의리스트를 가지고 와서 객체 생성과 의존관계 주입을 실행한다.
+     */
     public static void initialize(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Set<Class<?>> beanDefinition = BeanDefinition.initBeanDefinition(basePackage);
 
@@ -19,6 +27,13 @@ public class BeanFactory {
         }
     }
 
+    /**
+     * 의존관계 주입
+     * 이미 객체가 생성되어 있으면 건너뛴다.
+     * 리플렉션을 이용하여 클래스의 생성자와 매개변수를 가져온다. 재귀적으로 실행한다.
+     * boardController -> boardService -> boardRepository 순으로 DFS로 실행한다.
+     * 리플렉션을 이용하여 객체를 생성하고 빈에 삽입한다.
+     */
     public static <T> T dependencyInject(Class<T> clazz) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         if (beans.containsKey(clazz)) {
             return clazz.cast(beans.get(clazz));
@@ -38,6 +53,9 @@ public class BeanFactory {
         return clazz.cast(instance);
     }
 
+    /**
+     * 클래스 메타데이터로 빈 객체를 반환한다.
+     */
     public static <T> T getBean(Class<T> clazz) {
         return clazz.cast(beans.get(clazz));
     }

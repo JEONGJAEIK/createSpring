@@ -1,9 +1,8 @@
 package com.createspring.board.controller;
 
 import com.createspring.board.entity.Post;
-import com.createspring.board.repository.BoardRepository;
 import com.createspring.board.service.BoardService;
-import com.createspring.spring.RestController;
+import com.createspring.spring.annotation.RestController;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
