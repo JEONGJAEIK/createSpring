@@ -1,5 +1,6 @@
 package com.createspring.spring.bean;
 
+import com.createspring.spring.event.EventListenerMethodProcessor;
 import com.createspring.spring.proxy.ProxyFactory;
 import com.createspring.spring.proxy.TransactionalInterceptor;
 
@@ -29,6 +30,9 @@ public class BeanFactory {
         for (Class<?> clazz : beanDefinition) {
             dependencyInject(clazz);
         }
+
+        // 빈 후처리기의 실행 뒤 이벤트리스너를 처리한다.
+        EventListenerMethodProcessor.afterSingletonsInstantiated(beans.keySet());
     }
 
     /**
@@ -67,4 +71,6 @@ public class BeanFactory {
     public static <T> T getBean(Class<T> clazz) {
         return clazz.cast(beans.get(clazz));
     }
+
+
 }

@@ -9,4 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventListener {
 
+    /**
+     * 이 리스너가 처리하는 이벤트 클래스
+     */
+    Class<?>[] classes();
+
 }

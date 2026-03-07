@@ -1,5 +1,4 @@
 package com.createspring.spring.event;
 
-public interface EventListener {
-
+public abstract class ApplicationEvent {
 }
