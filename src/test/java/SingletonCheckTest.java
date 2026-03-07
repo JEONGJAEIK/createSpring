@@ -1,4 +1,4 @@
-import com.createspring.board.service.BoardService;
+import com.createspring.board.service.PostService;
 import com.createspring.spring.bean.BeanFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,8 +12,8 @@ public class SingletonCheckTest {
     @Test
     public void singleton() throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         BeanFactory.initialize("com.createspring");
-        BoardService service1 = BeanFactory.getBean(BoardService.class);
-        BoardService service2 = BeanFactory.getBean(BoardService.class);
+        PostService service1 = BeanFactory.getBean(PostService.class);
+        PostService service2 = BeanFactory.getBean(PostService.class);
         System.out.println(service1);
         System.out.println(service2);
         Assertions.assertEquals(service1, service2);

@@ -27,7 +27,6 @@ public class BoardRepository {
             pstmt.setString(3, p.getContent());
             pstmt.setString(4, p.getAuthor());
             pstmt.executeUpdate();
-            pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("쿼리 망했다 돔항챠아아아앜");
             throw new RuntimeException(e);
