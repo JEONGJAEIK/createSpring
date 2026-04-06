@@ -23,8 +23,11 @@ public class DefaultSingletonBeanRegistry implements ApplicationContext {
      */
     protected Map<Class<?>, String> typeToNameMap = new HashMap<>();
 
-    public void setBeanDefinitionMap(Object singleton, BeanDefinition beanDefinition) {
-        String beanName = beanDefinition.getBeanClassName();
+    /**
+     * 빈을 맵에 저장한다.
+     */
+    public void setBeanMap(Object singleton, BeanDefinition beanDefinition) {
+        String beanName = createBeanName(beanDefinition.getBeanClass());
         Class<?> beanClass = beanDefinition.getBeanClass();
         beanDefinitionMap.put(beanName, beanDefinition);
         singletonMap.put(beanName, singleton);
@@ -32,16 +35,34 @@ public class DefaultSingletonBeanRegistry implements ApplicationContext {
     }
 
     /**
-     * 클래스 이름으로 빈 객체를 반환한다.
+     * 빈 이름을 생성한다 첫 글자를 소문자로
+     */
+    private String createBeanName(Class<?> clazz) {
+        String simpleName = clazz.getSimpleName();
+        return Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
+    }
+
+    /**
+     * 빈 이름으로 빈 객체를 반환한다.
      */
     @Override
     public Object getBean(String beanName) {
         return singletonMap.get(beanName);
     }
 
+    /**
+     * 메타데이터로 빈 이름을 반환한다.
+     */
     @Override
-    public String getClassName(String beanName) {
-        BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
-        return beanDefinition.getBeanClassName();
+    public String getBeanName(Class<?> clazz) {
+        return typeToNameMap.get(clazz);
     }
+
+    /**
+     * 메타데이터로 빈이 존재하는지 확인한다.
+     */
+    public boolean checkHasBean(Class<?> clazz) {
+        return typeToNameMap.containsKey(clazz);
+    }
+
 }
