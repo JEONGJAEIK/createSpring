@@ -8,14 +8,14 @@
 
 ```
 src/main/java/com/createspring/
-├── spring/                         
-│   ├── annotation/                 # 어노테이션 정의
-│   ├── bean/                       # 빈 로직
-│   │   └── post/                   # 빈 후 처리기 로직
-│   ├── proxy/                      # 프록시 로직
-│   ├── jdbc/                       # 트랜잭션/커넥션 로직
-│   └── event/                      # 이벤트 로직
-└── board/                          # 검증용 게시판 로직
+├── board/                          # 검증용 게시판 로직
+└── spring/                         # 스프링 로직
+    ├── annotation/                 # 어노테이션 정의
+    ├── bean/                       # 빈 로직
+    │   └── post/                   # 빈 후 처리기 로직
+    ├── proxy/                      # 프록시 로직
+    ├── jdbc/                       # 트랜잭션/커넥션 로직
+    └── event/                      # 이벤트 로직
 ```
 
 ---
