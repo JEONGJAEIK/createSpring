@@ -2,7 +2,9 @@ package com.createspring;
 
 import com.createspring.board.controller.PostCreateController;
 import com.createspring.board.controller.PostSearchController;
+import com.createspring.spring.bean.ApplicationContext;
 import com.createspring.spring.bean.BeanFactory;
+import com.createspring.spring.bean.DefaultSingletonBeanRegistry;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -23,15 +25,16 @@ public class Main {
      */
     public static void main(String[] args) throws LifecycleException, IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         BeanFactory.initialize("com.createspring");
+        ApplicationContext applicationContext = new DefaultSingletonBeanRegistry();
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
         tomcat.getConnector();
 
         Context context = tomcat.addContext("", new File(".").getAbsolutePath());
-        Tomcat.addServlet(context, "postSearchController", BeanFactory.getBean(PostSearchController.class));
+        Tomcat.addServlet(context, "postSearchController", applicationContext.getBean("postSearchController").toString());
         context.addServletMappingDecoded("/post/search", "postSearchController");
 
-        Tomcat.addServlet(context, "postCreateController", BeanFactory.getBean(PostCreateController.class));
+        Tomcat.addServlet(context, "postCreateController", applicationContext.getBean("postCreateController").toString());
         context.addServletMappingDecoded("/post/create", "postCreateController");
 
         tomcat.start();

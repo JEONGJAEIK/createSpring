@@ -1,8 +1,6 @@
 package com.createspring.spring.bean;
 
 import com.createspring.spring.bean.post.PostBeanProcessor;
-import com.createspring.spring.event.EventListenerMethodProcessor;
-import com.createspring.spring.proxy.ProxyFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -14,10 +12,9 @@ import java.util.Set;
 
 /**
  * 빈 팩토리
- * 빈을 관리한다.
  */
 public class BeanFactory {
-    private static Map<Class<?>, Object> beans = new HashMap<>();
+    private static final Map<Class<?>, Object> immidateMap = new HashMap<>();
 
     /**
      * 빈 팩토리를 초기화한다. 톰캣이 실행되기 전에 미리 실행한다.
@@ -25,14 +22,18 @@ public class BeanFactory {
      * 완료되면 빈 후처리기에 빈을 전달한다.
      */
     public static void initialize(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Set<Class<?>> beanDefinition = BeanDefinition.initBeanDefinition(basePackage);
-
-        for (Class<?> clazz : beanDefinition) {
+        Set<Class<?>> metaDataSet = initBeanDefinition(basePackage);
+        for (Class<?> clazz : metaDataSet) {
             dependencyInject(clazz);
         }
+    }
 
-        // 빈 후처리기의 실행 뒤 이벤트리스너를 처리한다.
-        EventListenerMethodProcessor.afterSingletonsInstantiated(beans.keySet());
+    /**
+     * 빈 팩토리의 초기화시 발생한다. 컴포넌트 스캔으로 부터 얻은 빈정의를 저장하고 빈 팩토리에 전달한다.
+     *
+     */
+    public static Set<Class<?>> initBeanDefinition(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException {
+        return ComponentScan.scanComponent(basePackage);
     }
 
     /**
@@ -44,9 +45,8 @@ public class BeanFactory {
      * 생성 직후 빈 후처리기를 적용하여 프록시가 필요한 빈은 프록시로 교체한다.
      */
     public static <T> T dependencyInject(Class<T> clazz) throws InvocationTargetException, InstantiationException, IllegalAccessException {
-        PostBeanProcessor postBeanProcessor = new PostBeanProcessor();
-        if (beans.containsKey(clazz)) {
-            return clazz.cast(beans.get(clazz));
+        if (immidateMap.containsKey(clazz)) {
+            return clazz.cast(immidateMap.get(clazz));
         }
 
         Constructor<?> constructor = clazz.getConstructors()[0];
@@ -59,18 +59,10 @@ public class BeanFactory {
         }
 
         Object instance = constructor.newInstance(dependencies);
-        Object processed = postBeanProcessor.scanTargetProxy(clazz, instance);
-        beans.put(clazz, processed);
-        System.out.println(clazz + "빈 생성 완료");
+        Object processed = PostBeanProcessor.scanTargetProxy(clazz, instance);
+        BeanDefinition beanDefinition = new BeanDefinition(clazz);
+        DefaultSingletonBeanRegistry.setBeanDefinitionMap(processed, beanDefinition);
+        System.out.println(beanDefinition.getBeanClassName() + "빈 생성 완료");
         return clazz.cast(processed);
     }
-
-    /**
-     * 클래스 메타데이터로 빈 객체를 반환한다.
-     */
-    public static <T> T getBean(Class<T> clazz) {
-        return clazz.cast(beans.get(clazz));
-    }
-
-
 }
