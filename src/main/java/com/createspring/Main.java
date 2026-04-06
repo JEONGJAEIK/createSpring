@@ -5,6 +5,7 @@ import com.createspring.board.controller.PostSearchController;
 import com.createspring.spring.bean.ApplicationContext;
 import com.createspring.spring.bean.BeanFactory;
 import com.createspring.spring.bean.DefaultSingletonBeanRegistry;
+import jakarta.servlet.Servlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -31,10 +32,10 @@ public class Main {
         tomcat.getConnector();
 
         Context context = tomcat.addContext("", new File(".").getAbsolutePath());
-        Tomcat.addServlet(context, "postSearchController", applicationContext.getBean("postSearchController").toString());
+        Tomcat.addServlet(context, "postSearchController", (Servlet) applicationContext.getBean("postSearchController"));
         context.addServletMappingDecoded("/post/search", "postSearchController");
 
-        Tomcat.addServlet(context, "postCreateController", applicationContext.getBean("postCreateController").toString());
+        Tomcat.addServlet(context, "postCreateController", (Servlet) applicationContext.getBean("postCreateController"));
         context.addServletMappingDecoded("/post/create", "postCreateController");
 
         tomcat.start();

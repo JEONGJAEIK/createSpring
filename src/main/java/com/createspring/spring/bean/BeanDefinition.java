@@ -2,7 +2,7 @@ package com.createspring.spring.bean;
 
 /**
  * 빈 정의
- * 빈이 되어야할 클래스 메타데이터를 관리한다.
+ * 클래스 메타데이터를 관리한다.
  */
 public class BeanDefinition {
 
@@ -15,11 +15,16 @@ public class BeanDefinition {
         this.beanClassName = createBeanName(metaData);
     }
 
-    private String createBeanName(Class<?> metaData) {
-        return metaData.getSimpleName();
+    private String createBeanName(Class<?> clazz) {
+        String simpleName = clazz.getSimpleName();
+        return Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
     }
 
     public String getBeanClassName() {
         return beanClassName;
+    }
+
+    public Class<?> getBeanClass() {
+        return beanClass;
     }
 }

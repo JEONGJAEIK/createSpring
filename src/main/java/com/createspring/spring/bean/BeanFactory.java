@@ -13,8 +13,7 @@ import java.util.Set;
 /**
  * 빈 팩토리
  */
-public class BeanFactory {
-    private static final Map<Class<?>, Object> immediateMap = new HashMap<>();
+public class BeanFactory extends DefaultSingletonBeanRegistry {
 
     /**
      * 빈 팩토리를 초기화한다. 톰캣이 실행되기 전에 미리 실행한다.
@@ -45,8 +44,8 @@ public class BeanFactory {
      * 생성 직후 빈 후처리기를 적용하여 프록시가 필요한 빈은 프록시로 교체한다.
      */
     public static <T> T dependencyInject(Class<T> clazz) throws InvocationTargetException, InstantiationException, IllegalAccessException {
-        if (immediateMap.containsKey(clazz)) {
-            return clazz.cast(immediateMap.get(clazz));
+        if (typeToNameMap.containsKey(clazz)) {
+            return clazz.cast(typeToNameMap.get(clazz));
         }
 
         Constructor<?> constructor = clazz.getConstructors()[0];
