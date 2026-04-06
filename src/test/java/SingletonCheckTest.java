@@ -16,6 +16,6 @@ public class SingletonCheckTest {
         PostService service2 = BeanFactory.getBean(PostService.class);
         System.out.println(service1);
         System.out.println(service2);
-        Assertions.assertEquals(service1, service2);
+        Assertions.assertSame(service1, service2);
     }
 }
