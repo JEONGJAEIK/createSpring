@@ -13,10 +13,11 @@ public class SingletonCheckTest {
 
     @Test
     public void singleton() throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        BeanFactory.initialize("com.createspring");
-        ApplicationContext applicationContext = new DefaultSingletonBeanRegistry();
-        PostService service1 = (PostService) applicationContext.getBean("postService");
-        PostService service2 = (PostService) applicationContext.getBean("postService");
+        BeanFactory beanFactory = BeanFactory.getBeanFactory();
+        beanFactory.initialize("com.createspring");
+        
+        PostService service1 = (PostService) beanFactory.getBean("postService");
+        PostService service2 = (PostService) beanFactory.getBean("postService");
         System.out.println(service1);
         System.out.println(service2);
         Assertions.assertSame(service1, service2);

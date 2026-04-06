@@ -25,17 +25,17 @@ public class Main {
      * 모든 객체는 싱글톤이다.
      */
     public static void main(String[] args) throws LifecycleException, IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        BeanFactory.initialize("com.createspring");
-        ApplicationContext applicationContext = new DefaultSingletonBeanRegistry();
+        BeanFactory beanFactory = BeanFactory.getBeanFactory();
+        beanFactory.initialize("com.createspring");
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
         tomcat.getConnector();
 
         Context context = tomcat.addContext("", new File(".").getAbsolutePath());
-        Tomcat.addServlet(context, "postSearchController", (Servlet) applicationContext.getBean("postSearchController"));
+        Tomcat.addServlet(context, "postSearchController", (Servlet) beanFactory.getBean("postSearchController"));
         context.addServletMappingDecoded("/post/search", "postSearchController");
 
-        Tomcat.addServlet(context, "postCreateController", (Servlet) applicationContext.getBean("postCreateController"));
+        Tomcat.addServlet(context, "postCreateController", (Servlet) beanFactory.getBean("postCreateController"));
         context.addServletMappingDecoded("/post/create", "postCreateController");
 
         tomcat.start();
