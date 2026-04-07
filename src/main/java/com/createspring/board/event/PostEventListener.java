@@ -5,10 +5,10 @@ import com.createspring.spring.annotation.Component;
 import com.createspring.spring.annotation.EventListener;
 
 @Component
-public class SpringEventListener {
+public class PostEventListener {
     private final PostUtil postUtil;
 
-    public SpringEventListener(PostUtil postUtil) {
+    public PostEventListener(PostUtil postUtil) {
         this.postUtil = postUtil;
     }
 

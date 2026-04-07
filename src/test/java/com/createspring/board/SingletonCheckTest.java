@@ -1,3 +1,5 @@
+package com.createspring.board;
+
 import com.createspring.board.service.PostService;
 import com.createspring.spring.bean.BeanFactory;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +12,7 @@ import java.net.URISyntaxException;
 public class SingletonCheckTest {
 
     @Test
-    public void singleton() throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void 만들어진_빈은_싱글톤이어야한다() throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         BeanFactory beanFactory = new BeanFactory();
         beanFactory.initialize("com.createspring");
         
