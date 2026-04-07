@@ -62,6 +62,7 @@ public class AbstractApplicationContext implements ApplicationContext, Applicati
     /**
      * 트랜잭셔널 이벤트리스너를 실행한다.
      */
+    //TODO 트랜잭션동기화매니저를 구현하고 콜백 등록 로직 구현 필요
     private void processTransactionEventFactory(List<TransactionListenerMethodAdapter> txAdapterList, Object o) {
         for (TransactionListenerMethodAdapter txAdapter : txAdapterList) {
             String beanName = txAdapter.getBeanName();
