@@ -1,7 +1,6 @@
 package com.createspring.spring.bean.post;
 
 import com.createspring.spring.annotation.EventListener;
-import com.createspring.spring.bean.DefaultSingletonBeanRegistry;
 import com.createspring.spring.event.ApplicationListenerMethodAdapter;
 import com.createspring.spring.event.SimpleEventListenerFactory;
 
@@ -13,19 +12,22 @@ import java.lang.reflect.Method;
 public class EventListenerProcessor {
 
     /**
-     * 이벤트리스너 어노테이션이 존재하면 빈 이름을 리스터에 보관한다.
+     * 이벤트리스너 어노테이션이 존재하면 리스너 메타데이터를 등록한다.
+     * dependencyInject 안에서만 호출되므로 clazz는 항상 빈 대상 클래스다.
      */
     public void eventListenerMethod(Class<?> clazz) {
-        DefaultSingletonBeanRegistry registry = new DefaultSingletonBeanRegistry();
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(EventListener.class)) {
-                if (registry.checkHasBean(clazz)) {
-                    String beanName = registry.getBeanName(clazz);
-                    Class<?>[] triggerEvent = method.getParameterTypes();
-                    ApplicationListenerMethodAdapter adapter = new ApplicationListenerMethodAdapter(beanName, method);
-                    SimpleEventListenerFactory.setListener(triggerEvent[0], adapter);
-                }
+                String beanName = toBeanName(clazz);
+                Class<?>[] triggerEvent = method.getParameterTypes();
+                ApplicationListenerMethodAdapter adapter = new ApplicationListenerMethodAdapter(beanName, method);
+                SimpleEventListenerFactory.setListener(triggerEvent[0], adapter);
             }
         }
+    }
+
+    private String toBeanName(Class<?> clazz) {
+        String simpleName = clazz.getSimpleName();
+        return Character.toLowerCase(simpleName.charAt(0)) + simpleName.substring(1);
     }
 }

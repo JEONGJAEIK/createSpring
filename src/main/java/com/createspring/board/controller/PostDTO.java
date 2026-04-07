@@ -1,4 +1,4 @@
-package com.createspring.board.dto;
+package com.createspring.board.controller;
 
 public class PostDTO {
     private Long id;

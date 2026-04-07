@@ -25,7 +25,7 @@ src/main/java/com/createspring/
 - [x] 컴포넌트 스캔
 - [x] 의존관계 주입 / 빈 생성
 - [x] `@Transactional`
-- [ ] `@EventListener` (진행 중)
+- [x] `@EventListener`
 - [ ] `@TransactionalEventListener`
 - [ ] `@Async`
 - [ ] JDBC 템플릿
@@ -39,9 +39,3 @@ src/main/java/com/createspring/
 - [ ] 스프링 예외 추상화
 
 ---
-
-### 이벤트리스너 구현 계획
-
-1. AOP를 사용하지 않는다
-2. 미리 구성된 팩토리(`SimpleEventListenerFactory`)가 리스너 목록을 관리한다
-3. 이벤트 발생 시 리플렉션으로 리스너 메서드를 호출한다

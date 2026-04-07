@@ -1,10 +1,8 @@
 package com.createspring.board.service;
 
 
-import com.createspring.board.dto.PostDTO;
+import com.createspring.board.controller.PostDTO;
 import com.createspring.board.entity.Post;
-import com.createspring.board.event.BoardEventPublisher;
-import com.createspring.board.event.BoardEventPublisher2;
 import com.createspring.board.repository.BoardRepository;
 import com.createspring.board.springevent.PostCreateEvent;
 import com.createspring.board.springevent.PostSearchEvent;

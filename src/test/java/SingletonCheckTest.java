@@ -1,8 +1,5 @@
 import com.createspring.board.service.PostService;
-import com.createspring.spring.bean.AbstractApplicationContext;
-import com.createspring.spring.bean.ApplicationContext;
 import com.createspring.spring.bean.BeanFactory;
-import com.createspring.spring.bean.DefaultSingletonBeanRegistry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

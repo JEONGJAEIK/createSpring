@@ -1,8 +1,10 @@
-package com.createspring.board.springevent;
+package com.createspring.board.event;
 
 import com.createspring.board.service.PostUtil;
+import com.createspring.spring.annotation.Component;
 import com.createspring.spring.annotation.EventListener;
 
+@Component
 public class SpringEventListener {
     private final PostUtil postUtil;
 
