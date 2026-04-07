@@ -16,7 +16,6 @@ public class BoardRepository {
      */
     @Transactional
     public void save(Post p) {
-        System.out.println("인스턴스" + this);
         String sql = "insert into post(id, title, content, author) values(?, ?, ?, ?)";
         try {
             Connection con = ConnectionUtil.getConnection();
@@ -34,7 +33,6 @@ public class BoardRepository {
 
 
     public Post findById(Long id) {
-        System.out.println("인스턴스" + this);
         String sql = "select * from post where id = ?";
         Connection con = null;
         PreparedStatement pstmt = null;

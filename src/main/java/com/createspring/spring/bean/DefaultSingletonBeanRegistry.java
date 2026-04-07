@@ -63,4 +63,11 @@ public class DefaultSingletonBeanRegistry {
         return typeToNameMap.containsKey(clazz);
     }
 
+    /**
+     * 인터페이스 타입을 구현체 빈 이름으로 매핑한다.
+     */
+    public void registerTypeMapping(Class<?> interfaceType, Class<?> implType) {
+        String beanName = typeToNameMap.get(implType);
+        typeToNameMap.put(interfaceType, beanName);
+    }
 }

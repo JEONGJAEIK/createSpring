@@ -26,7 +26,7 @@ public class Main {
      */
     public static void main(String[] args) throws LifecycleException, IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         BeanFactory beanFactory = new BeanFactory();
-        beanFactory.initialize("com.createspring.board");
+        beanFactory.initialize("com.createspring");
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
         tomcat.getConnector();

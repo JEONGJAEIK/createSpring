@@ -3,6 +3,7 @@ package com.createspring.spring.bean;
 import com.createspring.spring.bean.post.EventListenerProcessor;
 import com.createspring.spring.bean.post.PostBeanProcessor;
 import com.createspring.spring.bean.post.TransactionalProcessor;
+import com.createspring.spring.bean.before.BeforeBeanProcessor;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -28,6 +29,7 @@ public class BeanFactory extends DefaultSingletonBeanRegistry {
      */
     public void initialize(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Set<Class<?>> metaDataSet = ComponentScan.scanComponent(basePackage);
+        BeforeBeanProcessor.process(this);
         for (Class<?> clazz : metaDataSet) {
             dependencyInject(clazz);
         }
