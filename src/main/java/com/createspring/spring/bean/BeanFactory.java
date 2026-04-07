@@ -1,6 +1,8 @@
 package com.createspring.spring.bean;
 
+import com.createspring.spring.bean.post.EventListenerProcessor;
 import com.createspring.spring.bean.post.PostBeanProcessor;
+import com.createspring.spring.bean.post.TransactionalProcessor;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -14,8 +16,12 @@ import java.util.Set;
 public class BeanFactory extends DefaultSingletonBeanRegistry {
 
     private static final BeanFactory singletonBeanFactory = new BeanFactory();
+    private final PostBeanProcessor postBeanProcessor;
 
-    private BeanFactory() {}
+    // 합성
+    private BeanFactory() {
+        this.postBeanProcessor = new PostBeanProcessor(new TransactionalProcessor(), new EventListenerProcessor());
+    }
 
     public static BeanFactory getBeanFactory() {
         return singletonBeanFactory;
@@ -56,7 +62,7 @@ public class BeanFactory extends DefaultSingletonBeanRegistry {
         }
 
         Object instance = constructor.newInstance(dependencies);
-        Object processed = PostBeanProcessor.processPostBean(clazz, instance);
+        Object processed = postBeanProcessor.processPostBean(clazz, instance);
         BeanDefinition beanDefinition = new BeanDefinition(clazz);
         setBeanMap(processed, beanDefinition);
         System.out.println(clazz.getSimpleName() + "빈 생성 완료");

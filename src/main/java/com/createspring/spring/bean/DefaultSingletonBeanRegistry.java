@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 빈 저장소 구현체
  */
-public class DefaultSingletonBeanRegistry implements ApplicationContext {
+public class DefaultSingletonBeanRegistry {
 
     /**
      * 빈 이름, 빈 객체 맵
@@ -45,7 +45,6 @@ public class DefaultSingletonBeanRegistry implements ApplicationContext {
     /**
      * 빈 이름으로 빈 객체를 반환한다.
      */
-    @Override
     public Object getBean(String beanName) {
         return singletonMap.get(beanName);
     }
@@ -53,7 +52,6 @@ public class DefaultSingletonBeanRegistry implements ApplicationContext {
     /**
      * 메타데이터로 빈 이름을 반환한다.
      */
-    @Override
     public String getBeanName(Class<?> clazz) {
         return typeToNameMap.get(clazz);
     }
