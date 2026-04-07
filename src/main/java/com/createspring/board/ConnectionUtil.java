@@ -1,4 +1,4 @@
-package com.createspring.board.repository;
+package com.createspring.board;
 
 import java.sql.*;
 

@@ -1,12 +1,12 @@
-package com.createspring.board.service;
+package com.createspring.board;
 
 
-import com.createspring.board.controller.PostDTO;
+import com.createspring.board.entity.PostDTO;
 import com.createspring.board.entity.Post;
-import com.createspring.board.repository.BoardRepository;
 import com.createspring.board.event.PostCreateEvent;
 import com.createspring.board.event.PostSearchEvent;
 import com.createspring.spring.annotation.Service;
+import com.createspring.spring.annotation.Transactional;
 import com.createspring.spring.event.ApplicationEventPublisher;
 
 @Service
@@ -22,6 +22,7 @@ public class PostService {
     /**
      * 게시글작성
      */
+    @Transactional
     public void createPost(PostDTO dto) {
         Post post = new Post(dto.getId(), dto.getTitle(), dto.getContent(), dto.getAuthor());
         boardRepository.save(post);

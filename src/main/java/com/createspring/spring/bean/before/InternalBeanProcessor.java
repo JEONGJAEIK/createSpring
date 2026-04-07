@@ -8,10 +8,10 @@ import com.createspring.spring.event.ApplicationEventPublisher;
 import com.createspring.spring.event.SimpleEventListenerFactory;
 
 /**
- * 빈 전처리기
+ * 내부 빈 등록기
  * 사용자 정의 빈을 등록하기 전에 필수 빈들을 등록한다.
  */
-public class BeforeBeanProcessor {
+public class InternalBeanProcessor {
 
     /**
      * 애플리케이션 컨텍스트를 미리 빈으로 등록한다.

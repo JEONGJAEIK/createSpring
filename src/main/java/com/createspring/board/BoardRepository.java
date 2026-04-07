@@ -1,4 +1,4 @@
-package com.createspring.board.repository;
+package com.createspring.board;
 
 import com.createspring.board.entity.Post;
 import com.createspring.spring.annotation.Repository;
@@ -12,9 +12,8 @@ import java.util.NoSuchElementException;
 public class BoardRepository {
 
     /**
-     * 같은 글을 2개 연속 저장함 트랜잭션이 있다면 모두 롤백 없다면 하나가 남아있음
+     * 글 저장
      */
-    @Transactional
     public void save(Post p) {
         String sql = "insert into post(id, title, content, author) values(?, ?, ?, ?)";
         try {

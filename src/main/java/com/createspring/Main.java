@@ -1,10 +1,6 @@
 package com.createspring;
 
-import com.createspring.board.controller.PostCreateController;
-import com.createspring.board.controller.PostSearchController;
-import com.createspring.spring.bean.ApplicationContext;
 import com.createspring.spring.bean.BeanFactory;
-import com.createspring.spring.bean.DefaultSingletonBeanRegistry;
 import jakarta.servlet.Servlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;

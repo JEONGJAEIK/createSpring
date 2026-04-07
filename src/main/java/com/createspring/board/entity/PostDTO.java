@@ -1,5 +1,8 @@
-package com.createspring.board.controller;
+package com.createspring.board.entity;
 
+/**
+ * DTO는 엔티티는 아니지만 검증용 기능이라 편의상 같은 패키지에 넣어 둠
+ */
 public class PostDTO {
     private Long id;
     private String title;

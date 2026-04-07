@@ -1,6 +1,5 @@
 package com.createspring.board;
 
-import com.createspring.board.service.PostService;
 import com.createspring.spring.bean.BeanFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
