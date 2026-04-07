@@ -1,4 +1,10 @@
 package com.createspring.spring.jdbc;
 
-public class DataSource {
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public interface DataSource {
+
+    Connection getConnection() throws SQLException;
+
 }

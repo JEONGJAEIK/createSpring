@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
  * 트랜잭션 담당 빈 후처리기
  */
 public class TransactionalProcessor {
-
     private final DataSourceTransactionManager txManager;
 
     public TransactionalProcessor(DataSourceTransactionManager txManager) {

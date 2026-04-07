@@ -5,17 +5,13 @@ import com.createspring.spring.bean.BeanDefinition;
 import com.createspring.spring.bean.BeanFactory;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class PostServiceTest {
 
     @Test
-    void 이벤트리스너_호출되고_트랜잭션이벤트리스너_미호출() throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    void 이벤트리스너_호출되고_트랜잭션이벤트리스너_미호출() throws Exception {
         BeanFactory beanFactory = new BeanFactory();
 
         PostUtil mockPostUtil = mock(PostUtil.class);

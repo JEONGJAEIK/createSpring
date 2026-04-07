@@ -22,9 +22,9 @@ public class BeanFactory extends DefaultSingletonBeanRegistry {
      * 빈 팩토리를 초기화한다. 톰캣이 실행되기 전에 미리 실행한다.
      * 컴포넌트 스캔을 실행하고 메타데이터로 객체 생성과 의존관계 주입을 실행한다.
      */
-    public void initialize(String basePackage) throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void initialize(String basePackage) throws Exception {
         Set<Class<?>> metaDataSet = ComponentScan.scanComponent(basePackage);
-        InternalBeanProcessor.process(this);
+        InternalBeanProcessor.process(this, basePackage);
         DataSourceTransactionManager txManager = (DataSourceTransactionManager) getBean("dataSourceTransactionManager");
         this.postBeanProcessor = new PostBeanProcessor(new TransactionalProcessor(txManager), new EventListenerProcessor());
         for (Class<?> clazz : metaDataSet) {

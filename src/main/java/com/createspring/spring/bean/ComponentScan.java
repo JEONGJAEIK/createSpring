@@ -42,7 +42,7 @@ public class ComponentScan {
      * @param packageName 패키지 이름
      * @return classes 모든 클래스 목록
      */
-    private static Set<Class<?>> scanPackage(String packageName) throws IOException, URISyntaxException, ClassNotFoundException {
+    public static Set<Class<?>> scanPackage(String packageName) throws IOException, URISyntaxException, ClassNotFoundException {
         Set<Class<?>> classes = new HashSet<>();
         String path = packageName.replace(".", "/");
 

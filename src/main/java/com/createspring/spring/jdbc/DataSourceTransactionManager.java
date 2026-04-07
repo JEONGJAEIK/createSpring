@@ -6,14 +6,10 @@ import java.sql.SQLException;
 
 public class DataSourceTransactionManager {
     private static final ThreadLocal<Connection> connectionHolder = new ThreadLocal<>();
-    private final String URL;
-    private final String USER;
-    private final String PASSWORD;
+    private final DataSource dataSource;
 
-    public DataSourceTransactionManager(String url, String user, String password) {
-        this.URL = url;
-        this.USER = user;
-        this.PASSWORD = password;
+    public DataSourceTransactionManager(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /**
@@ -24,7 +20,7 @@ public class DataSourceTransactionManager {
         if (con != null) {
             return con;
         }
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        return dataSource.getConnection();
     }
 
     /**

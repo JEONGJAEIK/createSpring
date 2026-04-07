@@ -4,14 +4,11 @@ import com.createspring.spring.bean.BeanFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
 
 public class SingletonCheckTest {
 
     @Test
-    public void 만들어진_빈은_싱글톤이어야한다() throws IOException, URISyntaxException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void 만들어진_빈은_싱글톤이어야한다() throws Exception {
         BeanFactory beanFactory = new BeanFactory();
         beanFactory.initialize("com.createspring");
         
