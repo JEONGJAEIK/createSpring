@@ -10,17 +10,17 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * 애플리케이션컨텍스트, 이벤트퍼블리셔를 구현.
+ * 애플리케이션컨텍스트, 이벤트퍼블리셔의 구현체
  * BeanFactory를 합성으로 보유
  */
-public class AbstractApplicationContext implements ApplicationContext, ApplicationEventPublisher {
+public class ApplicationContextImpl implements ApplicationContext, ApplicationEventPublisher {
     private final BeanFactory beanFactory = new BeanFactory();
     private final SimpleEventListenerFactory factory = new SimpleEventListenerFactory();
     private final TransactionalEventListenerFactory txFactory = new TransactionalEventListenerFactory();
 
-    public AbstractApplicationContext() {
-        beanFactory.setBeanMap(this, new BeanDefinition(AbstractApplicationContext.class));
-        beanFactory.registerTypeMapping(ApplicationEventPublisher.class, AbstractApplicationContext.class);
+    public ApplicationContextImpl() {
+        beanFactory.setBeanMap(this, new BeanDefinition(ApplicationContextImpl.class));
+        beanFactory.registerTypeMapping(ApplicationEventPublisher.class, ApplicationContextImpl.class);
     }
 
     @Override

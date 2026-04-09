@@ -1,6 +1,6 @@
 package com.createspring;
 
-import com.createspring.spring.bean.context.AbstractApplicationContext;
+import com.createspring.spring.bean.context.ApplicationContextImpl;
 import com.createspring.spring.bean.context.ApplicationContext;
 import jakarta.servlet.Servlet;
 import org.apache.catalina.Context;
@@ -18,7 +18,7 @@ public class Main {
      * 모든 객체는 싱글톤이다.
      */
     public static void main(String[] args) throws Exception {
-        ApplicationContext applicationContext = new AbstractApplicationContext();
+        ApplicationContext applicationContext = new ApplicationContextImpl();
         applicationContext.initialize("com.createspring");
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
