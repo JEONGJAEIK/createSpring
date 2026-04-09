@@ -1,12 +1,8 @@
 package com.createspring.board;
 
 import com.createspring.board.entity.PostDTO;
-import com.createspring.spring.bean.AbstractApplicationContext;
-import com.createspring.spring.bean.ApplicationContext;
 import com.createspring.spring.bean.BeanDefinition;
-import com.createspring.spring.bean.BeanFactory;
-import com.createspring.spring.event.SimpleEventListenerFactory;
-import com.createspring.spring.event.TransactionalEventListenerFactory;
+import com.createspring.spring.bean.context.BeanFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

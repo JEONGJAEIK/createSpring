@@ -1,7 +1,7 @@
 package com.createspring.board;
 
-import com.createspring.spring.bean.AbstractApplicationContext;
-import com.createspring.spring.bean.ApplicationContext;
+import com.createspring.spring.bean.context.AbstractApplicationContext;
+import com.createspring.spring.bean.context.ApplicationContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

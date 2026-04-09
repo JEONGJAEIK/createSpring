@@ -11,8 +11,9 @@ src/main/java/com/createspring/
 ├── board/                          # 검증용 게시판 기능
 └── spring/                         # 스프링 로직
     ├── annotation/                 # 어노테이션 정의
-    ├── bean/                       # 빈 로직
+    ├── bean/                       # 빈 등록 관련
     │   └── before/                 # 내부 빈 등록기 로직 (사용자 정의 빈 등록하기 전)
+    │   └── context/                # 빈 저장소 관련
     │   └── post/                   # 빈 후 처리기 로직
     ├── jdbc/                       # 커넥션 로직
     ├── proxy/                      # 프록시 로직

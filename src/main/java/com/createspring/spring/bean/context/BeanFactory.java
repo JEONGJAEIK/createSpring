@@ -1,15 +1,15 @@
-package com.createspring.spring.bean;
+package com.createspring.spring.bean.context;
 
+import com.createspring.spring.bean.BeanDefinition;
+import com.createspring.spring.bean.ComponentScan;
 import com.createspring.spring.bean.post.EventListenerProcessor;
 import com.createspring.spring.bean.post.PostBeanProcessor;
 import com.createspring.spring.bean.post.TransactionalProcessor;
 import com.createspring.spring.bean.before.InternalBeanProcessor;
 import com.createspring.spring.jdbc.DataSourceTransactionManager;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
 import java.util.Set;
 
 /**

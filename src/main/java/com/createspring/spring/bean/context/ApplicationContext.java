@@ -1,4 +1,4 @@
-package com.createspring.spring.bean;
+package com.createspring.spring.bean.context;
 
 
 /**

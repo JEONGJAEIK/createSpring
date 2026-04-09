@@ -1,5 +1,6 @@
-package com.createspring.spring.bean;
+package com.createspring.spring.bean.context;
 
+import com.createspring.spring.bean.BeanDefinition;
 import com.createspring.spring.event.*;
 import com.createspring.spring.transaction.TransactionPhase;
 import com.createspring.spring.transaction.TransactionSynchronizationManager;

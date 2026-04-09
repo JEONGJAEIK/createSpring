@@ -1,4 +1,6 @@
-package com.createspring.spring.bean;
+package com.createspring.spring.bean.context;
+
+import com.createspring.spring.bean.BeanDefinition;
 
 import java.util.HashMap;
 import java.util.Map;
