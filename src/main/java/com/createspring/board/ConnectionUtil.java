@@ -29,14 +29,14 @@ public class ConnectionUtil implements DataSource {
             try {
                 rs.close();
             } catch (SQLException e) {
-                System.out.println("결과가 조졌다");
+                System.out.println("리졸트 셋 예외 발생");
             }
         }
         if (stmt != null) {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                System.out.println("쿼리가 조졌다");
+                System.out.println("스테이트먼트 예외 발생");
             }
         }
     }

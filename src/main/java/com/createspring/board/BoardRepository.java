@@ -54,7 +54,7 @@ public class BoardRepository {
                 throw new NoSuchElementException("결과가 없당께");
             }
         } catch (SQLException e) {
-            System.out.println("돔황챠!!!!!! 커넥션이 터졌다!!!!!");
+            System.out.println("예외 발생");
             throw new RuntimeException(e);
         } finally {
             ConnectionUtil.close(pstmt, null);

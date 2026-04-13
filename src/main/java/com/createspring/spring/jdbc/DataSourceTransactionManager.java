@@ -59,7 +59,7 @@ public class DataSourceTransactionManager {
                 con.close();
                 TransactionSynchronizationManager.clear();
             } catch (SQLException e) {
-                System.out.println("커넥션이 조졌다");
+                System.out.println("커넥션 해제 예외 발생");
             }
         }
     }
