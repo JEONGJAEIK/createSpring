@@ -7,6 +7,7 @@ import com.createspring.spring.bean.post.PostBeanProcessor;
 import com.createspring.spring.bean.post.TransactionalProcessor;
 import com.createspring.spring.bean.before.InternalBeanProcessor;
 import com.createspring.spring.jdbc.DataSourceTransactionManager;
+import com.createspring.spring.transaction.AbstractPlatformTransactionManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +26,7 @@ public class BeanFactory extends DefaultSingletonBeanRegistry {
     public void initialize(String basePackage) throws Exception {
         Set<Class<?>> metaDataSet = ComponentScan.scanComponent(basePackage);
         InternalBeanProcessor.process(this, basePackage);
-        DataSourceTransactionManager txManager = (DataSourceTransactionManager) getBean("dataSourceTransactionManager");
+        AbstractPlatformTransactionManager txManager = (AbstractPlatformTransactionManager) getBean("dataSourceTransactionManager");
         this.postBeanProcessor = new PostBeanProcessor(new TransactionalProcessor(txManager), new EventListenerProcessor());
         for (Class<?> clazz : metaDataSet) {
             dependencyInject(clazz);

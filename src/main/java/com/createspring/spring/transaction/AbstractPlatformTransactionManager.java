@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 트랜잭션 동기화 매니저
  */
-public class TransactionSynchronizationManager {
+public abstract class AbstractPlatformTransactionManager implements PlatformTransactionManager{
 
     /**
      * 커넥션 보관함
@@ -20,28 +20,57 @@ public class TransactionSynchronizationManager {
      */
     private static final ThreadLocal<List<Runnable>> eventHolder = new ThreadLocal<>();
 
-    public static Connection getConnection() {
+    public Connection getConnection() throws SQLException{
         return connectionHolder.get();
     }
 
-    public static void setConnection(Connection con) {
+    public void setConnection(Connection con) {
         connectionHolder.set(con);
     }
 
+    /**
+     * 인터셉터 호출용 메서드 트랜잭션 시작
+     */
+    @Override
+    public Connection getTransaction() throws SQLException {
+        Connection con = getConnection();
+        con.setAutoCommit(false);
+        setConnection(con);
+        return con;
+    }
 
-    public static void commit() throws SQLException {
+    @Override
+    public void commit() throws SQLException {
         connectionHolder.get().commit();
         invokeSynchronizations();
     }
 
-    public static void rollback() throws SQLException {
+    @Override
+    public void rollback() throws SQLException {
         connectionHolder.get().rollback();
         eventHolder.remove();
     }
 
-    public static void clear() {
+
+    /**
+     * 인터셉터 호출용 메서드 해제
+     */
+    public void close() throws SQLException {
+        Connection con = getConnection();
+        if (con != null) {
+            try {
+                con.close();
+                clear();
+            } catch (SQLException e) {
+                System.out.println("커넥션 해제 예외 발생");
+            }
+        }
+    }
+
+    private void clear() {
         connectionHolder.remove();
     }
+
 
     /**
      * AFTER_COMMIT 콜백을 등록한다.

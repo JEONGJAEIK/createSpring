@@ -3,7 +3,7 @@ package com.createspring.spring.bean.context;
 import com.createspring.spring.bean.BeanDefinition;
 import com.createspring.spring.event.*;
 import com.createspring.spring.transaction.TransactionPhase;
-import com.createspring.spring.transaction.TransactionSynchronizationManager;
+import com.createspring.spring.transaction.AbstractPlatformTransactionManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -78,7 +78,7 @@ public class ApplicationContextImpl implements ApplicationContext, ApplicationEv
             Object bean = getBean(beanName);
             TransactionPhase phase = txAdapter.getPhase();
             if (phase == TransactionPhase.AFTER_COMMIT) {
-                TransactionSynchronizationManager.registerSynchronization(() -> {
+                AbstractPlatformTransactionManager.registerSynchronization(() -> {
                     try {
                         method.invoke(bean, o);
                     } catch (IllegalAccessException | InvocationTargetException e) {

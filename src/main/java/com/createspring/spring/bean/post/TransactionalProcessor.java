@@ -3,6 +3,7 @@ package com.createspring.spring.bean.post;
 import com.createspring.spring.annotation.Transactional;
 import com.createspring.spring.jdbc.DataSourceTransactionManager;
 import com.createspring.spring.proxy.ProxyFactory;
+import com.createspring.spring.transaction.AbstractPlatformTransactionManager;
 
 import java.lang.reflect.Method;
 
@@ -10,10 +11,10 @@ import java.lang.reflect.Method;
  * 트랜잭션 담당 빈 후처리기
  */
 public class TransactionalProcessor {
-    private final DataSourceTransactionManager txManager;
+    private final AbstractPlatformTransactionManager txManager;
 
-    public TransactionalProcessor(DataSourceTransactionManager txManager) {
-        this.txManager = txManager;
+    public TransactionalProcessor(AbstractPlatformTransactionManager abstractPlatformTransactionManager) {
+        this.txManager = abstractPlatformTransactionManager;
     }
 
     /**
