@@ -30,17 +30,6 @@ public class PostService {
     }
 
     /**
-     * 게시글작성 후 의도적 예외 발생 (롤백 테스트용)
-     */
-    @Transactional
-    public void createPostThenFail(PostDTO dto) {
-        Post post = new Post(dto.getId(), dto.getTitle(), dto.getContent(), dto.getAuthor());
-        boardRepository.save(post);
-        eventPublisher.publishEvent(new PostCreateEvent());
-        throw new RuntimeException("의도적 롤백");
-    }
-
-    /**
      * 글 조회
      */
     public Post getPost(Long id) {
