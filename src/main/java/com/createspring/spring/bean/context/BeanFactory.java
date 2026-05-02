@@ -47,6 +47,11 @@ public class BeanFactory extends DefaultSingletonBeanRegistry {
             return clazz.cast(singletonMap.get(beanName));
         }
 
+        Object resolvable = getResolvableDependency(clazz);
+        if (resolvable != null) {
+            return clazz.cast(resolvable);
+        }
+
         System.out.println(clazz.getSimpleName() + "의존관계 주입 시작");
         Constructor<?> constructor = clazz.getConstructors()[0];
         Class<?>[] paramTypes = constructor.getParameterTypes();

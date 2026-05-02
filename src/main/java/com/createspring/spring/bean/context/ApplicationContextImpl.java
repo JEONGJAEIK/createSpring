@@ -1,6 +1,5 @@
 package com.createspring.spring.bean.context;
 
-import com.createspring.spring.bean.BeanDefinition;
 import com.createspring.spring.event.*;
 import com.createspring.spring.transaction.TransactionPhase;
 import com.createspring.spring.transaction.TransactionSynchronizationManager;
@@ -19,13 +18,23 @@ public class ApplicationContextImpl implements ApplicationContext, ApplicationEv
     private final TransactionalEventListenerFactory txFactory = new TransactionalEventListenerFactory();
 
     public ApplicationContextImpl() {
-        beanFactory.setBeanMap(this, new BeanDefinition(ApplicationContextImpl.class));
-        beanFactory.registerTypeMapping(ApplicationEventPublisher.class, ApplicationContextImpl.class);
     }
 
+    /**
+     * 부트스트랩. 자기 자신을 주입가능 의존성으로 등록한 뒤 빈 팩토리를 초기화한다.
+     */
     @Override
     public void initialize(String basePackage) throws Exception {
+        beanFactory.registerResolvableDependency(ApplicationContext.class, this);
+        beanFactory.registerResolvableDependency(ApplicationEventPublisher.class, this);
         beanFactory.initialize(basePackage);
+    }
+
+    /**
+     * 합성한 빈 팩토리에 직접 접근.
+     */
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
     }
 
     @Override

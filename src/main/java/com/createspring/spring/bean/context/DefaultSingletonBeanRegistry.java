@@ -26,6 +26,12 @@ public class DefaultSingletonBeanRegistry {
     protected Map<Class<?>, String> typeToNameMap = new HashMap<>();
 
     /**
+     * 정식 빈은 아니지만 DI시 주입 가능한 특수 의존성
+     * 일반 빈 카탈로그(getBean, getBeansOfType)에는 노출되지 않는다.
+     */
+    protected Map<Class<?>, Object> resolvableDependencies = new HashMap<>();
+
+    /**
      * 빈을 맵에 저장한다.
      */
     public void setBeanMap(Object singleton, BeanDefinition beanDefinition) {
@@ -71,5 +77,19 @@ public class DefaultSingletonBeanRegistry {
     public void registerTypeMapping(Class<?> interfaceType, Class<?> implType) {
         String beanName = typeToNameMap.get(implType);
         typeToNameMap.put(interfaceType, beanName);
+    }
+
+    /**
+     * DI시에만 참조 가능한 특수 의존성을 등록한다. 빈 카탈로그에는 들어가지 않는다.
+     */
+    public void registerResolvableDependency(Class<?> dependencyType, Object autowiredValue) {
+        resolvableDependencies.put(dependencyType, autowiredValue);
+    }
+
+    /**
+     * 등록된 특수 의존성을 조회한다. 없으면 null.
+     */
+    public Object getResolvableDependency(Class<?> dependencyType) {
+        return resolvableDependencies.get(dependencyType);
     }
 }
