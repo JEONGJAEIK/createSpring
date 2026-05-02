@@ -6,7 +6,7 @@ import com.createspring.spring.jdbc.DataSource;
 import java.sql.*;
 
 /**
- * 커넥션 유틸 스레드로컬의 커넥션을 활용한다.
+ * 사용자 정의 DataSource 구현체
  */
 @Component
 public class ConnectionUtil implements DataSource {
@@ -14,9 +14,7 @@ public class ConnectionUtil implements DataSource {
     private static final String USER = "root";
     private static final String PASSWORD = "456456aa";
 
-    /**
-     * 커넥션 획득 스레드로컬에 커넥션이 있으면 그대로 활용한다.
-     */
+    @Override
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }

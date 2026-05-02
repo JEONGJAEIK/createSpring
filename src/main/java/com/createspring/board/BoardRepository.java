@@ -2,7 +2,7 @@ package com.createspring.board;
 
 import com.createspring.board.entity.Post;
 import com.createspring.spring.annotation.Repository;
-import com.createspring.spring.annotation.Transactional;
+import com.createspring.spring.jdbc.DataSourceUtils;
 
 import java.sql.*;
 import java.util.NoSuchElementException;
@@ -11,14 +11,19 @@ import java.util.NoSuchElementException;
 @Repository
 public class BoardRepository {
 
+    private final ConnectionUtil connectionUtil;
+
+    public BoardRepository(ConnectionUtil connectionUtil) {
+        this.connectionUtil = connectionUtil;
+    }
+
     /**
      * 글 저장
      */
     public void save(Post p) {
         String sql = "insert into post(id, title, content, author) values(?, ?, ?, ?)";
         try {
-            ConnectionUtil connectionUtil = new ConnectionUtil();
-            Connection con = connectionUtil.getConnection();
+            Connection con = DataSourceUtils.getConnection(connectionUtil);
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setLong(1, p.getId());
             pstmt.setString(2, p.getTitle());
@@ -38,8 +43,7 @@ public class BoardRepository {
         ResultSet rs;
 
         try {
-            ConnectionUtil connectionUtil = new ConnectionUtil();
-            Connection con = connectionUtil.getConnection();
+            Connection con = DataSourceUtils.getConnection(connectionUtil);
             pstmt = con.prepareStatement(sql);
             pstmt.setLong(1, id);
             rs = pstmt.executeQuery();

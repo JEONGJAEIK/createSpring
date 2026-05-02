@@ -1,7 +1,6 @@
 package com.createspring.spring.jdbc;
 
 import com.createspring.spring.transaction.AbstractPlatformTransactionManager;
-import com.createspring.spring.transaction.TransactionSynchronizationManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,17 +20,6 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
      */
     @Override
     protected Connection doGetTransaction() throws SQLException {
-        return dataSource.getConnection();
-    }
-
-    /**
-     * 일반 커넥션 획득. 스레드로컬에 트랜잭션 커넥션이 있으면 재사용한다.
-     */
-    public Connection getConnection() throws SQLException {
-        Connection con = TransactionSynchronizationManager.getResource();
-        if (con != null) {
-            return con;
-        }
         return dataSource.getConnection();
     }
 }
